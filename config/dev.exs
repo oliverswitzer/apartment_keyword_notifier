@@ -61,7 +61,8 @@ config :apartment_keyword_notifier, ApartmentKeywordNotifierWeb.Endpoint,
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/apartment_keyword_notifier_web/(live|views)/.*(ex)$",
-      ~r"lib/apartment_keyword_notifier_web/templates/.*(eex)$"
+      ~r"lib/apartment_keyword_notifier_web/templates/.*(eex)$",
+      ~r"lib/my_app_web/live/.*(sface)$"
     ]
   ]
 
