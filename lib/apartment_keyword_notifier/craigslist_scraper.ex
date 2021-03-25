@@ -1,4 +1,4 @@
-defmodule ApartmentKeywordNotifier.CraigslistCrawly do
+defmodule ApartmentKeywordNotifier.CraigslistScraper do
 
   defmodule Listing do
     defstruct [:name, :url, :price, :listing_detail]
