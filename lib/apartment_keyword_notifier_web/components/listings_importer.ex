@@ -9,14 +9,17 @@ defmodule ApartmentKeywordNotifierWeb.ListingsImporter do
 
   def render(assigns) do
     ~H"""
+    <h1>Enter a craigslist URL to create a saved search</h1>
     <input type="text" :on-keyup="update" />
     <input type="submit" :on-click="submit" />
     <h3 :if={{@loading}}>Loading...</h3>
 
     <ul>
       <li :for={{ listing <- @listings }}>
-      {{ listing.name }}
-    </li>
+        <p>{{ listing.name }}</p>
+        <p>{{listing.listing_detail.text}}</p>
+        <img src={{List.first(listing.listing_detail.images)}}/>
+      </li>
     </ul>
     """
   end
@@ -28,8 +31,8 @@ defmodule ApartmentKeywordNotifierWeb.ListingsImporter do
   def handle_event("submit", _, socket) do
     pid = self()
 
-    Task.async(fn ->
-      listings = ApartmentKeywordNotifier.CraigslistScraper.scrape(socket.assigns.url)
+    spawn(fn ->
+      listings = ApartmentKeywordNotifier.CraigslistScraper.scrape(socket.assigns.url, delay: 100)
 
       send_update(pid, ListingsImporter, id: "listings-importer", listings: listings, loading: false)
     end)
