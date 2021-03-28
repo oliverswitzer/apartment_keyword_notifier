@@ -1,6 +1,10 @@
 defmodule ApartmentKeywordNotifier.Scraping.CraigslistScraper do
   @http_client Application.compile_env!(:apartment_keyword_notifier, :http_client)
 
+  alias ApartmentKeywordNotifier.Scraping.Scraper
+
+  @behaviour Scraper
+
   defmodule Listing do
     defstruct [:name, :url, :price, :listing_detail]
   end
@@ -15,6 +19,7 @@ defmodule ApartmentKeywordNotifier.Scraping.CraigslistScraper do
     end
   end
 
+  @impl Scraper
   def scrape(starting_url, opts \\ []) do
     uri = URI.parse(starting_url)
 
