@@ -5,7 +5,7 @@ defmodule ApartmentKeywordNotifier.MixProject do
     [
       app: :apartment_keyword_notifier,
       version: "0.1.0",
-      elixir: "~> 1.7",
+      elixir: "~> 1.11",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -36,6 +36,7 @@ defmodule ApartmentKeywordNotifier.MixProject do
       {:ecto_sql, "~> 3.4"},
       {:floki, "~> 0.26.0"},
       {:gettext, "~> 0.11"},
+      {:hammox, "~> 0.5", only: :test},
       {:httpoison, "> 0.0.0"},
       {:jason, "~> 1.0"},
       {:phoenix, "~> 1.5.7"},
