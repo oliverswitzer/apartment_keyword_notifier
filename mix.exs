@@ -33,9 +33,11 @@ defmodule ApartmentKeywordNotifier.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:ecto_sql, "~> 3.4"},
       {:floki, "~> 0.26.0"},
       {:gettext, "~> 0.11"},
+      {:git_hooks, "~> 0.5.2", only: [:test, :dev], runtime: false},
       {:hammox, "~> 0.5", only: :test},
       {:httpoison, "> 0.0.0"},
       {:jason, "~> 1.0"},
