@@ -14,7 +14,11 @@ config :apartment_keyword_notifier,
 config :apartment_keyword_notifier, ApartmentKeywordNotifierWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "JmMZmFx0Ycm5Q2021+AkTS7Lwov614a2ODpjPx6jpcLc6vUWe8mv8uRxl+zNJr/x",
-  render_errors: [view: ApartmentKeywordNotifierWeb.ErrorView, accepts: ~w(html json), layout: false],
+  render_errors: [
+    view: ApartmentKeywordNotifierWeb.ErrorView,
+    accepts: ~w(html json),
+    layout: false
+  ],
   pubsub_server: ApartmentKeywordNotifier.PubSub,
   live_view: [signing_salt: "CznGipSC"]
 

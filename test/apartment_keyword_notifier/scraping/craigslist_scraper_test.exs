@@ -2,9 +2,9 @@ defmodule ApartmentKeywordNotifier.Scraping.CraigslistScraperTest do
   alias ApartmentKeywordNotifier.Scraping.CraigslistScraper
   alias ApartmentKeywordNotifier.Scraping.Scraper
 
-	use ExUnit.Case
+  use ExUnit.Case
 
-	doctest ApartmentKeywordNotifier.Scraping.CraigslistScraper
+  doctest ApartmentKeywordNotifier.Scraping.CraigslistScraper
 
   setup_all do
     Hammox.protect(CraigslistScraper, Scraper)

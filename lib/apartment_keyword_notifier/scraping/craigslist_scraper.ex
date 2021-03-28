@@ -46,16 +46,16 @@ defmodule ApartmentKeywordNotifier.Scraping.CraigslistScraper do
   defp fetch_listing_detail(url) do
     parsed_listing = parse(url)
 
-    text = parsed_listing
-    |> Floki.find("#postingbody")
-    |> Floki.text()
-    |> String.replace("QR Code Link to This Post\n", "")
+    text =
+      parsed_listing
+      |> Floki.find("#postingbody")
+      |> Floki.text()
+      |> String.replace("QR Code Link to This Post\n", "")
 
-    images = parsed_listing
-             |> Floki.find(".gallery img")
-             |> Enum.map(
-                  fn image -> Html.attribute(image, "src") end
-                )
+    images =
+      parsed_listing
+      |> Floki.find(".gallery img")
+      |> Enum.map(fn image -> Html.attribute(image, "src") end)
 
     %ListingDetail{
       text: text,

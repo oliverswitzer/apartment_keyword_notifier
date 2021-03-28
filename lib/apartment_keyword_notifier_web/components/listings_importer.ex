@@ -37,7 +37,11 @@ defmodule ApartmentKeywordNotifierWeb.ListingsImporter do
     spawn(fn ->
       listings = CraigslistScraper.scrape(socket.assigns.url, delay: 100)
 
-      send_update(pid, ListingsImporter, id: "listings-importer", listings: listings, loading: false)
+      send_update(pid, ListingsImporter,
+        id: "listings-importer",
+        listings: listings,
+        loading: false
+      )
     end)
 
     {:noreply, assign(socket, :loading, true)}
