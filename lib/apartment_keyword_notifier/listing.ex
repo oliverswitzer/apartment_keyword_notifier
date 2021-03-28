@@ -1,4 +1,6 @@
 defmodule ApartmentKeywordNotifier.Listing do
+  alias ApartmentKeywordNotifier.Listing.ListingDetail
+
   @type t :: %__MODULE__{
           name: String.t(),
           url: String.t(),

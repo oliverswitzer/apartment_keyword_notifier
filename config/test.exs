@@ -20,3 +20,6 @@ config :apartment_keyword_notifier, ApartmentKeywordNotifierWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+config :apartment_keyword_notifier,
+  http_client: ApartmentKeywordNotifier.HTTPoisonMock

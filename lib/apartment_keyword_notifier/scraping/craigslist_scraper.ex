@@ -1,4 +1,5 @@
 defmodule ApartmentKeywordNotifier.Scraping.CraigslistScraper do
+  @http_client Application.compile_env!(:apartment_keyword_notifier, :http_client)
 
   defmodule Listing do
     defstruct [:name, :url, :price, :listing_detail]
@@ -64,7 +65,7 @@ defmodule ApartmentKeywordNotifier.Scraping.CraigslistScraper do
   end
 
   defp parse(url) when is_binary(url) do
-    with {:ok, res} <- HTTPoison.get(url),
+    with {:ok, res} <- @http_client.get(url),
          {:ok, parsed_response} <- Floki.parse_document(res.body) do
       parsed_response
     end
