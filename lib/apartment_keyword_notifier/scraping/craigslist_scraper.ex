@@ -1,4 +1,4 @@
-defmodule ApartmentKeywordNotifier.CraigslistScraper do
+defmodule ApartmentKeywordNotifier.Scraping.CraigslistScraper do
 
   defmodule Listing do
     defstruct [:name, :url, :price, :listing_detail]
@@ -15,25 +15,32 @@ defmodule ApartmentKeywordNotifier.CraigslistScraper do
   end
 
   def scrape(starting_url, opts \\ []) do
-    delay = Keyword.get(opts, :delay, 500)
-    num_results = Keyword.get(opts, :num_result, 10)
+    uri = URI.parse(starting_url)
 
-    parse(starting_url)
-    |> Floki.find(".result-info")
-    |> Enum.take(num_results)
-    |> Enum.map(fn result ->
-      Process.sleep(delay)
+    if(uri.host =~ ~r/craigslist.org/) do
+      delay = Keyword.get(opts, :delay, 500)
+      num_results = Keyword.get(opts, :num_result, 10)
 
-      url = Floki.find(result, "a") |> Html.attribute("href")
-      listing_detail = fetch_listing_detail(url)
+      parse(starting_url)
+      |> Floki.find(".result-info")
+      |> Enum.take(num_results)
+      |> Enum.map(fn result ->
+        Process.sleep(delay)
 
-      %Listing{
-        name: Floki.find(result, ".result-title") |> Floki.text(),
-        url: url,
-        price: Floki.find(result, ".result-price") |> Floki.text(),
-        listing_detail: listing_detail
-      }
-    end)
+        url = Floki.find(result, "a") |> Html.attribute("href")
+        listing_detail = fetch_listing_detail(url)
+
+        %Listing{
+          name: Floki.find(result, ".result-title") |> Floki.text(),
+          url: url,
+          price: Floki.find(result, ".result-price") |> Floki.text(),
+          listing_detail: listing_detail
+        }
+      end)
+      |> ok()
+    else
+      {:error, "Must pass a craiglist url"}
+    end
   end
 
   defp fetch_listing_detail(url) do
@@ -61,5 +68,9 @@ defmodule ApartmentKeywordNotifier.CraigslistScraper do
          {:ok, parsed_response} <- Floki.parse_document(res.body) do
       parsed_response
     end
+  end
+
+  defp ok(res) do
+    {:ok, res}
   end
 end
